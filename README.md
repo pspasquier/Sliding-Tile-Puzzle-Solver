@@ -1,1 +1,1 @@
-# n-puzzle
+# Sliding-Tile-Puzzle-Solver

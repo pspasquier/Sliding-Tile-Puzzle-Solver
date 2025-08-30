@@ -1,6 +1,6 @@
 # Sliding-Tile-Puzzle-Solver
 
-This project is an implementation of the **N-Puzzle (Sliding-Tile Puzzle)** solver in C++, developed as part of the **Advanced Artificial Intelligence** course at **UFRGS**.  
+This project is an implementation of the **Sliding Tile Puzzle (N-Puzzle)** solver in C++, developed as part of the **Advanced Artificial Intelligence** course at **UFRGS**.  
 It is designed with a modular and extensible architecture to support different search strategies.
 
 ---

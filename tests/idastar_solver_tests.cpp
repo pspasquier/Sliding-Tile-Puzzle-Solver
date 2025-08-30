@@ -1,0 +1,45 @@
+#include "gtest/gtest.h"
+#include "puzzle_state.hpp"
+#include "idastar_solver.hpp"
+
+TEST(BFSSolverTest, IDAStarSolverPuzzleTest1) {
+    std::vector<int> tiles = {0, 6, 1, 7, 4, 2, 3, 8, 5};
+    PuzzleState::board_size = static_cast<int>(3);
+    PuzzleState initial(tiles);
+
+    IDAStarSolver solver;
+    SearchResult result = solver.solve(initial);
+
+    EXPECT_EQ(result.nodes_expanded, 165);
+    EXPECT_EQ(result.solution_length, 16);
+    EXPECT_NEAR(result.heuristic_mean, 7.13781, 1e-5);
+    EXPECT_EQ(result.initial_heuristic, 10);
+}
+
+TEST(BFSSolverTest, IDAStarSolverPuzzleTest2) {
+    std::vector<int> tiles = {5, 0, 2, 6, 4, 8, 1, 7, 3};
+    PuzzleState::board_size = static_cast<int>(3);
+    PuzzleState initial(tiles);
+
+    IDAStarSolver solver;
+    SearchResult result = solver.solve(initial);
+
+    EXPECT_EQ(result.nodes_expanded, 439);
+    EXPECT_EQ(result.solution_length, 21);
+    EXPECT_NEAR(result.heuristic_mean, 10.75, 1e-2);
+    EXPECT_EQ(result.initial_heuristic, 11);
+}
+
+TEST(BFSSolverTest, IDAStarSolverPuzzleTest3) {
+    std::vector<int> tiles = {2, 4, 7, 0, 3, 6, 8, 1, 5};
+    PuzzleState::board_size = static_cast<int>(3);
+    PuzzleState initial(tiles);
+
+    IDAStarSolver solver;
+    SearchResult result = solver.solve(initial);
+
+    EXPECT_EQ(result.nodes_expanded, 724);
+    EXPECT_EQ(result.solution_length, 23);
+    EXPECT_NEAR(result.heuristic_mean, 11.7241, 1e-4);
+    EXPECT_EQ(result.initial_heuristic, 15);
+}

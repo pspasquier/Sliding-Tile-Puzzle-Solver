@@ -18,8 +18,8 @@ It is designed with a modular and extensible architecture to support different s
   - **Misplaced**
   - **Euclidean**
   - **Manhattan**
-  - **Linear Conflict***
-  - **Pattern Database*** (On development)*
+  - **Linear Conflict**
+  - **Pattern Database** (on development)*
 - Tracks important search metrics:
   - Number of expanded nodes  
   - Solution cost (solution length)  

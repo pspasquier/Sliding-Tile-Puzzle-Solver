@@ -14,7 +14,12 @@ It is designed with a modular and extensible architecture to support different s
   - **GBFS** (Greedy Best-First Search)  
   - **A\*** (A-Star Search)
   - **IDA\*** (Iterative Deepening A-Star)
-- Utilize the Manhattan distance as heuristic for GBFS, A\* and IDA\*
+- Multiple search algorithms implemented:
+  - **Misplaced**
+  - **Euclidean**
+  - **Manhattan**
+  - **Linear Conflict***
+  - **Pattern Database*** (On development)*
 - Tracks important search metrics:
   - Number of expanded nodes  
   - Solution cost (solution length)  
@@ -51,7 +56,7 @@ After building, the solver binary is available inside the build/ folder.
 
 ### Syntax
 
-```./main -<algorithm> <puzzles configuration>```
+```./main -<algorithm> <heuristic> <puzzles configuration>```
 
 ### Parameters
 
@@ -61,13 +66,18 @@ After building, the solver binary is available inside the build/ folder.
   - gbfs → Greedy Best-First Search
   - astar → A* Search
   - idastar → Iterative Deepening A*
+- heuristic → Evaluation of a state to use. Options:
+  - misplaced
+  - euclidean
+  - manhattan
+  - linear_conflict
 - puzzles configuration → Initial puzzle states, as a flattened list of numbers separated by spaces, each configuration separated by comma:
 
 ### Example
 ```
 cd build
-./main -bfs 0 6 1 7 4 2 3 8 5, 5 0 2 6 4 8 1 7 3, 2 4 7 0 3 6 8 1 5
-./main -astar 7 11 8 3 14 0 6 15 1 4 13 9 5 12 2 10
+./main -bfs -misplaced 0 6 1 7 4 2 3 8 5, 5 0 2 6 4 8 1 7 3, 2 4 7 0 3 6 8 1 5
+./main -astar -manhattan 7 11 8 3 14 0 6 15 1 4 13 9 5 12 2 10
 ```
 
 ---
@@ -94,11 +104,8 @@ Two helper scripts are provided to automatically run batches of instances under 
 ---
 
 ## Future Work
-- Make heuristic modular and add:
-  - Euclidean distance
-  - Linear conflict
-  - Pattern databases
+- Make Puzzle Sizes (24, 36) modular.
+- Improve memory management
 - Implement parallel solvers for large puzzles
 - Add visualization of the state space
-- Improve memory management for very large instances
 

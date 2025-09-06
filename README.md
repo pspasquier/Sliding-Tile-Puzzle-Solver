@@ -14,7 +14,7 @@ It is designed with a modular and extensible architecture to support different p
   - **GBFS** (Greedy Best-First Search)  
   - **A\*** (A-Star Search)
   - **IDA\*** (Iterative Deepening A-Star)
-- Multiple search heuristics implemented:
+- Multiple heuristics implemented:
   - **Misplaced**
   - **Euclidean**
   - **Manhattan**

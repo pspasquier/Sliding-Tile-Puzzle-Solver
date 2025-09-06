@@ -18,21 +18,27 @@ enable_testing()
 
 # === FONTES DO PROJETO PRINCIPAL ===
 set(SOURCES
-    src/puzzle_parser.cpp
-    src/solver_factory.cpp
+    src/heuristics/manhattan_heuristic.cpp
+    src/heuristics/misplaced_heuristic.cpp
+    src/heuristics/euclidean_heuristic.cpp
+    src/heuristics/linear_conflict_heuristic.cpp
     src/solvers/bfs_solver.cpp
     src/solvers/astar_solver.cpp
     src/solvers/idastar_solver.cpp
     src/solvers/gbfs_solver.cpp
     src/solvers/idfs_solver.cpp
+    src/heuristic_factory.cpp
+    src/puzzle_parser.cpp
+    src/solver_factory.cpp
     src/puzzle_state.cpp
 )
 
 # Cria biblioteca interna com o core do projeto
 add_library(puzzle ${SOURCES})
 target_include_directories(puzzle PUBLIC
-    include
+    include/heuristics
     include/solvers
+    include
 )
 
 # Executável principal
@@ -48,6 +54,9 @@ set(TEST_SOURCES
     tests/astar_solver_tests.cpp
     tests/idastar_solver_tests.cpp
     tests/astar15_solver_tests.cpp
+    tests/manhattan_heuristic_tests.cpp
+    tests/misplaced_heuristic_tests.cpp
+    tests/euclidean_heuristic_tests.cpp
 )
 
 add_executable(run_tests ${TEST_SOURCES})

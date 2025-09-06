@@ -16,6 +16,9 @@ struct greedy_priority {
 SearchResult GBFSSolver::solve(PuzzleState& initial_state) {
     using clock = std::chrono::high_resolution_clock;
     const auto start_time = clock::now();
+
+    initial_state.h = heuristic->evaluate(initial_state);
+    initial_state.f = initial_state.h;
     
     int expanded_nodes = 0;
     int dummy_id = 1;
@@ -43,6 +46,8 @@ SearchResult GBFSSolver::solve(PuzzleState& initial_state) {
 
             for (auto& successor : current_state.generate_successors()) {
                 successor.order = dummy_id;
+                successor.h = heuristic->evaluate(successor);
+                successor.f = successor.h;
                 dummy_id++;
                 open.push(successor);
                 heuristic_sum += successor.h;

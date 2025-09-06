@@ -19,14 +19,12 @@ public:
     int blank_pos;
 
     PuzzleState(const std::vector<int>& state);
-    PuzzleState(const std::vector<int>& state, int order, MoveDirection action, int h, int g, int blank_pos);
+    PuzzleState(const std::vector<int>& state, MoveDirection action, int g, int blank_pos);
 
     bool is_goal() const;
     std::vector<PuzzleState> generate_successors() const;
     uint64_t serialize() const;
 
-    static int manhattan_distance(int value, int position);
-    static int compute_heuristic(const std::vector<int>& tiles);
     bool can_move(MoveDirection dir) const;
     static MoveDirection opposite_direction(MoveDirection dir);
 

@@ -18,6 +18,9 @@ SearchResult AStarSolver::solve(PuzzleState& initial_state) {
     using clock = std::chrono::high_resolution_clock;
     const auto start_time = clock::now();
     
+    initial_state.h = heuristic->evaluate(initial_state);
+    initial_state.f = initial_state.h + initial_state.g;
+    
     int expanded_nodes = 0;
     int dummy_id = 1;
     int heuristic_sum = initial_state.h;
@@ -36,8 +39,6 @@ SearchResult AStarSolver::solve(PuzzleState& initial_state) {
             if (current_state.is_goal()) {
                 auto duration = clock::now() - start_time;
                 double heuristic_mean = (double)heuristic_sum / dummy_id;
-                std::cout << "dummy_id: " << dummy_id << std::endl;
-                std::cout << "expanded_nodes: " << expanded_nodes << std::endl;
 
                 return { expanded_nodes, current_state.g, duration, heuristic_mean, initial_state.h };
             }
@@ -47,15 +48,14 @@ SearchResult AStarSolver::solve(PuzzleState& initial_state) {
 
             for (auto& successor : current_state.generate_successors()) {
                 successor.order = dummy_id;
+                successor.h = heuristic->evaluate(successor);
+                successor.f = successor.h + successor.g;
                 dummy_id++;
                 open.push(successor);
                 heuristic_sum += successor.h;
             }
         }
     }
-
-    std::cout << "dummy_id: " << dummy_id << std::endl;
-    std::cout << "expanded_nodes: " << expanded_nodes << std::endl;
 
     auto duration = clock::now() - start_time;
     return { expanded_nodes, -1, duration, 0.0, initial_state.h };

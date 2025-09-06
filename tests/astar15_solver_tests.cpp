@@ -1,13 +1,14 @@
 #include "gtest/gtest.h"
 #include "puzzle_state.hpp"
 #include "astar_solver.hpp"
+#include "manhattan_heuristic.hpp"
 
-TEST(BFSSolverTest, AStar15SolverPuzzleTest1) {
+TEST(AStar15SolverTest, PuzzleTest1) {
     std::vector<int> tiles = {7, 11, 8, 3, 14, 0, 6, 15, 1, 4, 13, 9, 5, 12, 2, 10};
     PuzzleState::board_size = static_cast<int>(4);
     PuzzleState initial(tiles);
 
-    AStarSolver solver;
+    AStarSolver solver(std::make_unique<ManhattanHeuristic>());
     SearchResult result = solver.solve(initial);
 
     EXPECT_EQ(result.nodes_expanded, 154092);
@@ -16,12 +17,12 @@ TEST(BFSSolverTest, AStar15SolverPuzzleTest1) {
     EXPECT_EQ(result.initial_heuristic, 36);
 }
 
-TEST(BFSSolverTest, AStar15SolverPuzzleTest2) {
+TEST(AStar15SolverTest, PuzzleTest2) {
     std::vector<int> tiles = {12, 9, 0, 6, 8, 3, 5, 14, 2, 4, 11, 7, 10, 1, 15, 13};
     PuzzleState::board_size = static_cast<int>(4);
     PuzzleState initial(tiles);
 
-    AStarSolver solver;
+    AStarSolver solver(std::make_unique<ManhattanHeuristic>());
     SearchResult result = solver.solve(initial);
 
     EXPECT_EQ(result.nodes_expanded, 2731989);
@@ -30,12 +31,12 @@ TEST(BFSSolverTest, AStar15SolverPuzzleTest2) {
     EXPECT_EQ(result.initial_heuristic, 32);
 }
 
-TEST(BFSSolverTest, AStar15SolverPuzzleTest3) {
+TEST(AStar15SolverTest, PuzzleTest3) {
     std::vector<int> tiles = {13, 0, 9, 12, 11, 6, 3, 5, 15, 8, 1, 10, 4, 14, 2, 7};
     PuzzleState::board_size = static_cast<int>(4);
     PuzzleState initial(tiles);
 
-    AStarSolver solver;
+    AStarSolver solver(std::make_unique<ManhattanHeuristic>());
     SearchResult result = solver.solve(initial);
 
     EXPECT_EQ(result.nodes_expanded, 744209);

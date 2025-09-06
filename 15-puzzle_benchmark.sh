@@ -22,7 +22,7 @@ while IFS= read -r line; do
     ulimit -v "$memory_limit_kb"
 
     # Executa com timeout
-    if ! output=$(timeout "$timeout_duration" ./build/main -astar "$trimmed_line" 2>/dev/null); then
+    if ! output=$(timeout "$timeout_duration" ./build/main -astar -linear_conflict "$trimmed_line" 2>/dev/null); then
         # Timeout ou falha → escreve linha nula
         echo "-,-,-,-,-" >> results/astar15.csv
     else

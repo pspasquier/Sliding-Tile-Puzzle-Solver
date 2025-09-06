@@ -1,13 +1,14 @@
 #include "gtest/gtest.h"
 #include "puzzle_state.hpp"
 #include "gbfs_solver.hpp"
+#include "manhattan_heuristic.hpp"
 
-TEST(BFSSolverTest, GBFSSolverPuzzleTest1) {
+TEST(GBFSSolverTest, PuzzleTest1) {
     std::vector<int> tiles = {0, 6, 1, 7, 4, 2, 3, 8, 5};
     PuzzleState::board_size = static_cast<int>(3);
     PuzzleState initial(tiles);
 
-    GBFSSolver solver;
+    GBFSSolver solver(std::make_unique<ManhattanHeuristic>());
     SearchResult result = solver.solve(initial);
 
     EXPECT_EQ(result.nodes_expanded, 16);
@@ -16,12 +17,12 @@ TEST(BFSSolverTest, GBFSSolverPuzzleTest1) {
     EXPECT_EQ(result.initial_heuristic, 10);
 }
 
-TEST(BFSSolverTest, GBFSSolverPuzzleTest2) {
+TEST(GBFSSolverTest, PuzzleTest2) {
     std::vector<int> tiles = {5, 0, 2, 6, 4, 8, 1, 7, 3};
     PuzzleState::board_size = static_cast<int>(3);
     PuzzleState initial(tiles);
 
-    GBFSSolver solver;
+    GBFSSolver solver(std::make_unique<ManhattanHeuristic>());
     SearchResult result = solver.solve(initial);
 
     EXPECT_EQ(result.nodes_expanded, 96);
@@ -30,12 +31,12 @@ TEST(BFSSolverTest, GBFSSolverPuzzleTest2) {
     EXPECT_EQ(result.initial_heuristic, 11);
 }
 
-TEST(BFSSolverTest, GBFSSolverPuzzleTest3) {
+TEST(GBFSSolverTest, PuzzleTest3) {
     std::vector<int> tiles = {2, 4, 7, 0, 3, 6, 8, 1, 5};
     PuzzleState::board_size = static_cast<int>(3);
     PuzzleState initial(tiles);
 
-    GBFSSolver solver;
+    GBFSSolver solver(std::make_unique<ManhattanHeuristic>());
     SearchResult result = solver.solve(initial);
 
     EXPECT_EQ(result.nodes_expanded, 90);

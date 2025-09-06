@@ -5,7 +5,13 @@
 #include <algorithm>
 #include "idastar_solver.hpp"
 
-std::tuple<int, int> recursive_search_ida(PuzzleState& current_state, int f_limit, int& expanded_nodes, int& dummy_id, int& heuristic_sum) {
+std::tuple<int, int> IDAStarSolver::recursive_search_ida(
+    PuzzleState& current_state,
+    int f_limit,
+    int& expanded_nodes,
+    int& dummy_id,
+    int& heuristic_sum
+) {
     heuristic_sum += current_state.h;
     dummy_id++;
     if (current_state.f > f_limit)
@@ -17,6 +23,9 @@ std::tuple<int, int> recursive_search_ida(PuzzleState& current_state, int f_limi
     int next_limit = std::numeric_limits<int>::max();
     
     for (auto& successor : current_state.generate_successors()) {
+        successor.h = heuristic->evaluate(successor);
+        successor.f = successor.h + successor.g;
+
         const auto [rec_limit, solution] = recursive_search_ida(successor, f_limit, expanded_nodes, dummy_id, heuristic_sum);
         if (solution != -1)
             return { -1, solution };
@@ -29,6 +38,9 @@ std::tuple<int, int> recursive_search_ida(PuzzleState& current_state, int f_limi
 SearchResult IDAStarSolver::solve(PuzzleState& initial_state) {
     using clock = std::chrono::high_resolution_clock;
     const auto start_time = clock::now();
+
+    initial_state.h = heuristic->evaluate(initial_state);
+    initial_state.f = initial_state.h + initial_state.g;
     
     int expanded_nodes = 0;
     int dummy_id = 1;

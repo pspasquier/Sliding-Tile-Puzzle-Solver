@@ -1,7 +1,7 @@
 #include <chrono>
 #include "idfs_solver.hpp"
 
-#define MAX_DEPTH 256
+#define MAX_DEPTH 255
 
 int depth_limited_search(const PuzzleState& current_state, int depth_limit, int& expanded_nodes, int g_cost) {
     if (current_state.is_goal()) 
